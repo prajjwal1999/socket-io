@@ -8,6 +8,9 @@ const server = http.createServer(app);
 const io = socketio(server);
 io.on("connection", (socket) => {
   console.log("Connected with socket id=", socket.id);
+  socket.on("msg_send", (data) => {
+    io.emit("msg_rcvd", data);
+  });
 });
 app.use("/", express.static(__dirname + "/public"));
 
